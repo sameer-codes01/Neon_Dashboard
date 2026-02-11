@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, Users, Settings, LogOut, BarChart3, ShieldCheck, PieChart } from 'lucide-react'
+import { LayoutDashboard, Users, Settings, LogOut, BarChart3, ShieldCheck, PieChart, Video, Sparkles } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 
 export function Sidebar({ role }: { role: string }) {
@@ -10,6 +10,7 @@ export function Sidebar({ role }: { role: string }) {
 
     const navItems = [
         { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+        { name: 'AI Summarizer', href: '/dashboard/ai-summarizer', icon: Video, isPro: true },
         { name: 'Analytics', href: '/dashboard/analytics', icon: PieChart },
     ]
 
@@ -37,13 +38,18 @@ export function Sidebar({ role }: { role: string }) {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${isActive
-                                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
-                                    : 'hover:bg-slate-800 hover:text-white'
+                            className={`flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group ${isActive
+                                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
+                                : 'hover:bg-slate-800 hover:text-white'
                                 }`}
                         >
-                            <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-indigo-400'}`} />
-                            <span className="font-medium">{item.name}</span>
+                            <div className="flex items-center gap-3">
+                                <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-indigo-400'}`} />
+                                <span className="font-medium">{item.name}</span>
+                            </div>
+                            {(item as any).isPro && (
+                                <Sparkles className={`w-3.5 h-3.5 ${isActive ? 'text-indigo-200' : 'text-indigo-500 group-hover:text-indigo-400'}`} />
+                            )}
                         </Link>
                     )
                 })}
@@ -61,8 +67,8 @@ export function Sidebar({ role }: { role: string }) {
                                     key={item.href}
                                     href={item.href}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${isActive
-                                            ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
-                                            : 'hover:bg-slate-800 hover:text-white'
+                                        ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
+                                        : 'hover:bg-slate-800 hover:text-white'
                                         }`}
                                 >
                                     <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-indigo-400'}`} />
